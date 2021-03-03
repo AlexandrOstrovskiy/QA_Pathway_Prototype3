@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    public float jumpForce = 23.0f;
+    public float jumpForce = 16.0f;
     public float gravityModifier = 5.0f;
     public bool OnGroud = true;
+    public bool gameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        OnGroud = true;
+        if (collision.gameObject.CompareTag("Ground"))
+            OnGroud = true;
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            gameOver = true;
+            Debug.Log("Game Over!");
+        }
     }
 }
